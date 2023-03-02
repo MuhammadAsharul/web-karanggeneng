@@ -35,20 +35,46 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form form-vertical" action="{{ route('post.store') }}" method="post">
+                    <form class="form form-vertical" action="{{ route('post.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group has-icon-left">
-                                        <label for="name">Kategori</label>
+                                        <label for="judul">Judul Post</label>
                                         <div class="position-relative">
                                             <input type="text" class="form-control" placeholder="Input with icon left"
-                                                name="name" id="name" />
+                                                name="judul" id="judul" />
                                             <div class="form-control-icon">
-                                                <i class="bi bi-person"></i>
+                                                <i class="bi bi-book"></i>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group has-icon-left">
+                                        <label for="kategori">Kategori Post</label>
+                                        <div class="position-relative">
+                                            <fieldset class="form-group">
+                                                <select class="form-select" id="basicSelect" name="category_id">
+                                                    <option value="" holder>Pilih Kategori</option>
+                                                    @foreach ($category as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="content">Konten Post</label>
+                                        <div class="position-relative">
+                                            <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gambar" class="form-label">Thumbnail</label>
+                                        <input class="form-control " id="gambar" type="file" name="gambar" />
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end mt-2">

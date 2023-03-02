@@ -41,7 +41,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group has-icon-left">
-                                        <label for="name">Kategori</label>
+                                        <label for="name">Nama Tag</label>
                                         <div class="position-relative">
                                             <input type="text" class="form-control" placeholder="Input with icon left"
                                                 name="name" id="name" />

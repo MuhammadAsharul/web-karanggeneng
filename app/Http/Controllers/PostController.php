@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.post.create');
+        $category = Category::all();
+        return view('admin.pages.post.create', compact('category'));
     }
 
     /**
@@ -29,7 +31,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'judul' => 'required',
+            'category_id' => 'required',
+            'content' => 'required',
+            'gambar' => 'required'
+        ]);
+        $gambar = $request->file('gambar');
+        $newGambar = time() . $gambar->getClientOriginalName();
+        $post = Post::create([
+            'judul' => $request->judul,
+            'category_id' => $request->category_id,
+            'content' => $request->content,
+            'gambar' => 'public/uploads/post/' . $newGambar
+        ]);
+        $gambar->move('public/uploads/post/' . $newGambar);
+
+        return redirect()->route('post.index')->with('status', 'Postingan Berhasil Disimpan');
     }
 
     /**
